@@ -1,7 +1,31 @@
 <template>
-    <div class="dialog" v-if="show">
-       <div class="dialog__content">
-            <slot></slot>
+    <div class="dialog" v-if="show" @click.stop="hideDialog">
+       <div class="dialog__content" @click.stop>
+            <slot>
+                <h3 class="title__dialog">Редактироват профил</h3>
+                <v-form
+                    ref="form"
+                    v-model="valid"
+                    lazy-validation
+                >
+                    <v-text-field
+                        label="Имя"
+                        required
+                    ></v-text-field>
+
+                    <v-text-field
+                        label="Фамилия"
+                        required
+                    ></v-text-field>
+                    <v-btn
+                        color="success"
+                        class="mr-4"
+                        @click="hideDialog"
+                    >
+                        Редактироват
+                    </v-btn>
+                </v-form>
+            </slot>
        </div>
     </div>
 </template>
@@ -14,12 +38,18 @@ export default {
             type: Boolean,
             default: false
         }
+    },
+    methods:{
+        hideDialog(){
+            this.$emit('update:show', false)
+        }
     }
 }
 </script>
 
 <style scoped>
 .dialog{
+    z-index: 1000;
     top: 0;
     bottom: 0;
     right: 0;
@@ -32,9 +62,12 @@ export default {
     margin: auto;
     background: white;
     border-radius: 12px;
-    min-height: 100px;
-    min-width: 100px;
+    width: 500px;
+    height: 300px;
+    padding: 20px;
 }
-
+.title__dialog{
+    margin: 10px;
+}
 </style>
 

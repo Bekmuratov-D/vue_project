@@ -1,5 +1,6 @@
 <template>
   <div>
+    <my-dialog v-model:show="dialogVisible"></my-dialog>
     <h2>Ваш профиль</h2>
     <v-card class="profile__card">
         <div class="prof__continer">
@@ -43,8 +44,7 @@
                 <v-card-actions>
                     <v-btn
                     color="deep-purple-lighten-2"
-                    text
-                    @click="reserve"
+                    @click="showDialog"
                     >
                     Редактироват
                     </v-btn>
@@ -56,7 +56,18 @@
 </template>
 
 <script>
-
+export default {
+    data() {
+        return{
+            dialogVisible: false,
+        }
+    },
+    methods: {
+        showDialog() {
+            this.dialogVisible = true;
+        }
+    }
+}   
 </script>
 
 <style scoped>
